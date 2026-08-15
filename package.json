@@ -1,0 +1,66 @@
+{
+  "name": "dsh-mojibake-interceptor",
+  "description": "Mojibake interceptor for DeepSeek Harness: feature-based garbled-text detection that interrupts garbled writes and asks for review (an identical retry passes).",
+  "version": "0.2.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "cordis",
+    "plugin",
+    "mojibake",
+    "encoding",
+    "garbled-text",
+    "pwsh",
+    "powershell",
+    "windows"
+  ],
+  "author": "Fire Disposal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fire-disposal/personal-shrine.git",
+    "directory": "dsh-plugins/dsh-mojibake-interceptor"
+  },
+  "homepage": "https://github.com/fire-disposal/personal-shrine/tree/main/dsh-plugins/dsh-mojibake-interceptor",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./detect": {
+      "types": "./lib/types/detect.d.ts",
+      "default": "./lib/detect.js"
+    },
+    "./interceptor": {
+      "types": "./lib/types/interceptor.d.ts",
+      "default": "./lib/interceptor.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.7.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+    "@deepseek-ai/schemastery": "^3.18.1"
+  }
+}

@@ -1,0 +1,11 @@
+# dsh-mojibake-interceptor bundle layer: inserted when a profile lists this
+# package as a bundle (dsh plugin --profile web add dsh-mojibake-interceptor).
+# Users may override these rows in their own profile cordis.patch.yml.
+- insert:
+    - id: mojibake-interceptor
+      name: 'dsh-mojibake-interceptor'
+      config:
+        mode: warn
+        pwshEncodingGuard: warn
+        resultWatchTools: [pwsh, bash, bash_persistent, read]
+        excludePaths: ['*dsh-mojibake-interceptor*']
