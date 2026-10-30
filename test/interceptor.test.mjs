@@ -58,3 +58,12 @@ test('buildReason preview is bounded', () => {
   assert.ok(reason.length < 3000);
   assert.match(reason, /另有 14 处特征/);
 });
+
+test('warned cache evicts only the oldest fingerprint at capacity', () => {
+  const it = createInterceptor({ mode: 'warn' });
+  assert.equal(flag(it).kind, 'deny');
+  for (let i = 0; i < 4096; i++) {
+    assert.equal(flag(it, 'write', `file-${i}.md`).kind, 'deny');
+  }
+  assert.equal(flag(it, 'write', 'file-4095.md').kind, 'allow');
+});

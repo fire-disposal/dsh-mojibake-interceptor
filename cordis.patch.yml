@@ -7,5 +7,5 @@
       config:
         mode: warn
         pwshEncodingGuard: warn
-        resultWatchTools: [pwsh, bash, bash_persistent, read]
+        resultWatchTools: [pwsh, bash, terminal_open, terminal_send, terminal_read, job_output, read]
         excludePaths: ['*dsh-mojibake-interceptor*']

@@ -12,10 +12,12 @@ export declare const name = 'mojibake-interceptor';
 export interface Config {
   /** warn = deny once, identical retry passes; block = always deny; ask = human approval. Default 'warn'. */
   mode?: 'warn' | 'block' | 'ask';
-  /** Tools whose write payloads are scanned. Default ['write','edit','str_replace_editor']. */
+  /** Tools whose write payloads are scanned. Defaults to write/edit/str_replace_editor/apply_patch and shell input tools. */
   tools?: string[];
-  /** Tools whose results are scanned for garbled-output notices. Default ['pwsh','bash','bash_persistent','read']. */
+  /** Tools whose results are scanned for garbled-output notices. Defaults to shell, terminal, job output, and read tools. */
   resultWatchTools?: string[];
+  /** Audit unsafe PowerShell file-write encoding declarations. Default 'warn'. */
+  pwshEncodingGuard?: 'warn' | 'off';
   minSeverity?: 'moderate' | 'severe';
   excludePaths?: string[];
   maxFindings?: number;
