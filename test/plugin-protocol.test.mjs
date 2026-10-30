@@ -109,3 +109,41 @@ test('aborted post-execution stops after downstream settles', async () => {
     async () => ({ kind: 'accept' }),
   ), { name: 'AbortError' });
 });
+
+test('multi-file apply_patch permits one identical retry for the whole call', async () => {
+  const { pre } = setup();
+  const input = `*** Begin Patch
+*** Add File: a.md
++${MOJIBAKE}
+*** Add File: b.md
++${MOJIBAKE}
+*** End Patch`;
+  const exec = execution('apply_patch', { input });
+  assert.equal((await pre(exec, allow)).kind, 'deny');
+  assert.equal((await pre(exec, allow)).kind, 'allow');
+});
+
+test('apply_patch recognizes a whitespace-prefixed operation header', async () => {
+  const { pre } = setup();
+  const input = `*** Begin Patch
+ *** Add File: docs/note.md
++${MOJIBAKE}
+*** End Patch`;
+  const decision = await pre(execution('apply_patch', { input }), allow);
+  assert.equal(decision.kind, 'deny');
+  assert.match(decision.reason, /docs\/note\.md/);
+});
+
+test('apply_patch keeps a space-prefixed header-looking line as update context', async () => {
+  const { pre } = setup();
+  const input = `*** Begin Patch
+*** Update File: docs/note.md
+@@
+ *** Add File: fake.md
++${MOJIBAKE}
+*** End Patch`;
+  const decision = await pre(execution('apply_patch', { input }), allow);
+  assert.equal(decision.kind, 'deny');
+  assert.match(decision.reason, /docs\/note\.md/);
+  assert.doesNotMatch(decision.reason, /fake\.md/);
+});

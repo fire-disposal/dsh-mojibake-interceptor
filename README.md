@@ -34,7 +34,7 @@
 - 16 类检测特征，覆盖 UTF-8↔CP1252/GBK/Big5 双向误读、UTF-16 残留、替换符、ANSI 转义、BOM 异常、字面转义与 HTML 实体
 - 三档模式 `warn` / `block` / `ask`，SHA-256 指纹键是「工具 + 路径 + 待写入文本」，LRU 表封顶 4096 条，不长期保留原始写入内容
 - 性能：门控正则先挡掉纯 ASCII（1 MB 约 2 ms），候选段按 `maxRunChars` 2048 / `maxRuns` 64 / `maxFindings` 8 止损
-- 测试 85 项全过（含 1 MB ASCII、200 KB 中文性能冒烟与最新工具协议行为）
+- 测试 88 项全过（含 1 MB ASCII、200 KB 中文性能冒烟与最新工具协议行为）
 
 ## 启动流程
 

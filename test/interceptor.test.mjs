@@ -66,4 +66,6 @@ test('warned cache evicts only the oldest fingerprint at capacity', () => {
     assert.equal(flag(it, 'write', `file-${i}.md`).kind, 'deny');
   }
   assert.equal(flag(it, 'write', 'file-4095.md').kind, 'allow');
+  assert.equal(flag(it, 'write', 'file-new.md').kind, 'deny');
+  assert.equal(flag(it, 'write', 'file-4095.md').kind, 'allow');
 });
